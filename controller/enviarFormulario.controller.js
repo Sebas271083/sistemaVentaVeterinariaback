@@ -41,8 +41,8 @@ export const enviarFormularioContacto = async (req, res) => {
         from: process.env.MAIL_FROM,
         to: email,
         subject: "Tu código para la tienda de la veterinaria",
-        text: ` Tu código de acceso es: ${codigoPlano}`,
-        html: `<p>Hola ${nombre}. <br> Tu código de acceso es:</p><p style="font-size:20px;"><b>${codigoPlano}</b></p>`,
+        text: ` Contacto para demo`,
+        html: `<p>Hola soy ${nombre}. <br> de la clinica ${clinica}. <br> Mi contacto es ${contacto} </p> y quiero más información sobre sus servicios.`,
       });
 
       res.json({
