@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-
+import { mailer } from "../config/mailer.js";
 
 
 function guardarEnArchivo(data) {
@@ -15,7 +15,7 @@ function guardarEnArchivo(data) {
 
 
 
-export const enviarFormularioContacto = (req, res) => {
+export const enviarFormularioContacto = async (req, res) => {
   // Lógica para manejar el envío del formulario de contacto
   const { nombre, clinica, contacto } = req.body || {};
 
@@ -35,6 +35,21 @@ export const enviarFormularioContacto = (req, res) => {
 
   // ✅ Guardar
   guardarEnArchivo(payload);
+
+        // Enviar mail
+      await mailer.sendMail({
+        from: process.env.MAIL_FROM,
+        to: email,
+        subject: "Tu código para la tienda de la veterinaria",
+        text: ` Tu código de acceso es: ${codigoPlano}`,
+        html: `<p>Hola ${nombre}. <br> Tu código de acceso es:</p><p style="font-size:20px;"><b>${codigoPlano}</b></p>`,
+      });
+
+      res.json({
+        ok: true,
+        message: "Código enviado al email",
+      });
+ 
 
   // ✅ Responder
   return res.json({ ok: true, mensaje: "Solicitud recibida" });
