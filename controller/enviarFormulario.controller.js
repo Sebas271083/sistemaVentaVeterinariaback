@@ -58,6 +58,8 @@ export const enviarFormularioContacto = async (req, res) => {
       });
     }
 
+    console.log("✅ Formulario de contacto enviado y guardado.");
+
     return res.json({ ok: true, mensaje: "Solicitud recibida. Te contactaremos pronto." });
   } catch (err) {
     console.error("❌ Error enviarFormularioContacto:", err);
