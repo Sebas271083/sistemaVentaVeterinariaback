@@ -1,3 +1,11 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
+console.log("CWD =", process.cwd());
+console.log("ENV loaded MAIL_USER =", process.env.EMAIL_FROM);
+console.log("ENV loaded MAIL_PASS =", process.env.EMAIL_PASSWORD ? "OK" : "VACIO");
+
 import express from 'express';
 import cors from 'cors';
 // import morgan from 'morgan';
@@ -6,9 +14,7 @@ import cookieParser from 'cookie-parser';
 import fs from "fs";
 import path from 'path';
 import { fileURLToPath } from 'url';
-import dotenv from "dotenv";
 
-dotenv.config();
 
 
 
