@@ -35,8 +35,12 @@ export const enviarFormularioContacto = async (req, res) => {
     const to = process.env.MAIL_TO;
     const from = process.env.MAIL_FROM || process.env.EMAIL_FROM;
 
+
+    if (!from) {
+      return res.status(500).json({ error: "MAIL_FROM/EMAIL_FROM no configurado en el servidor." });
+    }
     if (!to) {
-      console.warn("⚠️ MAIL_TO no está configurado. No se enviará email.");
+      return res.status(500).json({ error: "MAIL_TO no configurado en el servidor." });
     } else {
       const mailer = crearMailer(); // ✅ se crea acá, no al importar
       await mailer.sendMail({
