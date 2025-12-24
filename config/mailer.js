@@ -2,15 +2,16 @@
 import nodemailer from "nodemailer";
 
 export function crearMailer() {
-  if (!process.env.EMAIL_FROM || !process.env.EMAIL_PASSWORD) {
-    throw new Error("EMAIL_FROM o EMAIL_PASSWORD no definidos");
+  if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+    throw new Error("SMTP_USER o SMTP_PASS no definidos (Mailtrap)");
   }
 
   return nodemailer.createTransport({
-    service: "gmail",
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
     auth: {
-      user: process.env.EMAIL_FROM,
-      pass: process.env.EMAIL_PASSWORD,
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
     },
   });
 }
