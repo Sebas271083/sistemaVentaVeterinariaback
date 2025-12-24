@@ -36,7 +36,7 @@ app.set('views', path.join(path.dirname(fileURLToPath(import.meta.url)), 'views'
 // app.use(morgan('dev'));
 app.use(
   cors({
-    origin: process.env.FRONT_ORIGIN?.split(",") || ["http://localhost:5174", "http://localhost:3000"],
+    origin: process.env.FRONT_ORIGIN?.split(",") || ["http://localhost:5173", "http://localhost:8081"],
   })
 );
 app.use(express.json({ limit: "100kb" })); // evita payloads gigantes
