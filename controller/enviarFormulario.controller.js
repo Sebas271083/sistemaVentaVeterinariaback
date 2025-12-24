@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 import { crearMailer } from "../config/mailer.js";
+import { Resend } from "resend";
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 function guardarEnArchivo(data) {
   const dir = path.join(process.cwd(), "data");
@@ -43,7 +46,8 @@ export const enviarFormularioContacto = async (req, res) => {
       return res.status(500).json({ error: "MAIL_TO no configurado en el servidor." });
     } else {
       const mailer = crearMailer(); // ✅ se crea acá, no al importar
-      await mailer.sendMail({
+      // await mailer.sendMail({
+      await resend.emails.send({
         from,
         to,
         subject: `Nueva solicitud de demo - ${payload.nombre} | ${payload.clinica}`,
